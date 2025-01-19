@@ -26,7 +26,7 @@ const Login = () => {
         // Check if the logged in user is admin based on email or role
         if (email === "admin@example.com") {
           // Redirect to Admin Dashboard if admin credentials are correct
-          navigate("/admin");
+          navigate("/admin.");
         } else {
           // For other users, redirect to Booking Form
           navigate("/bookingform");
