@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import "./BookingForm.css"; // Custom styles for React Calendar
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -80,12 +81,9 @@ const BookingForm = () => {
     );
 
     if (booking) {
-      if (booking.duration === "Full day")
-        return "bg-red-500 text-white font-bold";
-      if (booking.duration === "Morning")
-        return "bg-yellow-400 text-black font-bold";
-      if (booking.duration === "Afternoon")
-        return "bg-blue-400 text-white font-bold";
+      if (booking.duration === "Full day") return "full-day-booked";
+      if (booking.duration === "Morning") return "morning-booked";
+      if (booking.duration === "Afternoon") return "afternoon-booked";
     }
     return "";
   };
@@ -168,7 +166,7 @@ const BookingForm = () => {
         type="submit"
         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
       >
-        Submit  Booking
+        Submit Booking
       </button>
     </form>
   );
