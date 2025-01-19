@@ -76,7 +76,7 @@ const Login = () => {
             onClick={() => setIsRegistering(!isRegistering)}
             className="text-blue-600 underline"
           >
-            Switch to {isRegistering ? "User Login" : "Admin Login"}
+            Switch to. {isRegistering ? "User Login" : "Admin Login"}
           </button>
         </div>
       </div>

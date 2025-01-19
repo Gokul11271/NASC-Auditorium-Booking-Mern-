@@ -23,7 +23,7 @@ const App = () => {
         {/* Login route */}
         <Route path="/contact" element={<Contact />} />
         {/* Contact route */}
-        <Route path="/admin" element={<AdminDashboard />} />{" "}
+        <Route path="/admin." element={<AdminDashboard />} />{" "}
         {/* Admin dashboard route */}
       </Routes>
     </Router>

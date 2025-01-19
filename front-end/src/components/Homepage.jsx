@@ -77,7 +77,7 @@ const Homepage = () => {
           className="mt-8 px-10 py-4 text-xl font-bold bg-teal-500 text-white rounded-full hover:bg-teal-600 transition duration-500 shadow-lg"
           onClick={handleButtonClick} // Call the handleButtonClick function on button click
         >
-          Book Now
+          Book Now 
         </button>
       </div>
     </div>

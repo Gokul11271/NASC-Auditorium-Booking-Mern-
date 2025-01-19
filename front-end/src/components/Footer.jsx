@@ -11,7 +11,7 @@ const Footer = () => {
         <p className="text-sm mt-2">
           Developed by:{" "}
           <span className="font-semibold">
-            Gokul, Sachin, Muthuraj, Mouniga, Ilakkeshwaran, Prajth
+            Gokul, Sachin, Muthuraj, Moni, Ilakkeshwaran, Prajth .
           </span>
         </p>
       </div>

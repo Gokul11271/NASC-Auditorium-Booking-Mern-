@@ -6,6 +6,7 @@ const AdminDashboard = () => {
   const [cancelRequests, setCancelRequests] = useState([]);
   const [disapprovedBookings, setDisapprovedBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,6 +80,23 @@ const AdminDashboard = () => {
     }
   };
 
+  // Function to format the date to match the search format
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString();
+  };
+
+  // Filter bookings based on search term (name, department, date, duration, or status)
+  const filteredBookings = bookings.filter((booking) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    return (
+      booking.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+      booking.department.toLowerCase().includes(lowerCaseSearchTerm) ||
+      formatDate(booking.dateofBooking).includes(lowerCaseSearchTerm) ||
+      booking.duration.toLowerCase().includes(lowerCaseSearchTerm) ||
+      booking.status.toLowerCase().includes(lowerCaseSearchTerm) // Adding status filter
+    );
+  });
+
   if (loading)
     return (
       <p className="text-center mt-4 text-lg font-medium text-gray-600">
@@ -93,11 +111,21 @@ const AdminDashboard = () => {
           Admin Dashboard
         </h1>
 
-        {/* Bookings Section */}
+        {/* Bookings Section with Search Bar */}
         <section className="mb-12 p-6 bg-blue-50 rounded-lg shadow">
           <h2 className="text-2xl font-semibold text-blue-600 mb-4">
             Bookings
           </h2>
+          {/* Search Bar */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Search bookings by name, department, date, duration, or status"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="p-2 border border-gray-300 rounded w-full"
+            />
+          </div>
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-300 text-sm text-gray-700">
               <thead className="bg-blue-500 text-white">
@@ -114,7 +142,7 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {bookings.map((booking) => (
+                {filteredBookings.map((booking) => (
                   <tr
                     key={booking._id}
                     className="hover:bg-gray-100 text-center"
@@ -124,7 +152,7 @@ const AdminDashboard = () => {
                     <td className="px-4 py-2 border">{booking.mobileNumber}</td>
                     <td className="px-4 py-2 border">{booking.eventName}</td>
                     <td className="px-4 py-2 border">
-                      {new Date(booking.dateofBooking).toLocaleDateString()}
+                      {formatDate(booking.dateofBooking)}
                     </td>
                     <td className="px-4 py-2 border">{booking.duration}</td>
                     <td className="px-4 py-2 border">{booking.department}</td>
@@ -231,7 +259,7 @@ const AdminDashboard = () => {
                     <td className="px-4 py-2 border">{booking.mobileNumber}</td>
                     <td className="px-4 py-2 border">{booking.eventName}</td>
                     <td className="px-4 py-2 border">
-                      {new Date(booking.dateofBooking).toLocaleDateString()}
+                      {formatDate(booking.dateofBooking)}
                     </td>
                     <td className="px-4 py-2 border">{booking.duration}</td>
                     <td className="px-4 py-2 border">{booking.department}</td>
