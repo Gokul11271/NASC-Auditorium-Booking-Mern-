@@ -1,21 +1,22 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // All files in src with these extensions
-    "./public/index.html", // Include your HTML file(s)
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"], // Ensure this path matches your project structure
   theme: {
     extend: {
       animation: {
-        gradient: "gradient 6s ease infinite",
+        flow: "flow 10s ease-in-out infinite",
+        'bounce-slow': "bounce 6s infinite",
+        'spin-slow': "spin 8s linear infinite",
+        fadeIn: "fadeIn 2s ease-out",
       },
       keyframes: {
-        gradient: {
-          "0%, 100%": {
-            backgroundPosition: "0% 50%",
-          },
-          "50%": {
-            backgroundPosition: "100% 50%",
-          },
+        flow: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
     },
