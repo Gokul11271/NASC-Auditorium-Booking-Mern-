@@ -56,9 +56,9 @@ app.get("/bookings", async (req, res) => {
 
 app.post("/booking", async (req, res) => {
     try {
-      const { name, mobileNumber, eventName, dateofBooking, duration, department } = req.body;
+      const { name, mobileNumber, eventName, dateofBooking, duration, department, college } = req.body;
 
-      if (!name || !mobileNumber || !eventName || !dateofBooking || !duration || !department) {
+      if (!name || !mobileNumber || !eventName || !dateofBooking || !duration || !department || !college) {
         return res.status(400).json({ success: false, message: "All fields are required." });
       }
 

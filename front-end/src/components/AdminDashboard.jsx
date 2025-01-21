@@ -93,6 +93,7 @@ const AdminDashboard = () => {
       booking.department.toLowerCase().includes(lowerCaseSearchTerm) ||
       formatDate(booking.dateofBooking).includes(lowerCaseSearchTerm) ||
       booking.duration.toLowerCase().includes(lowerCaseSearchTerm) ||
+      booking.college.toLowerCase().includes(lowerCaseSearchTerm) ||
       booking.status.toLowerCase().includes(lowerCaseSearchTerm) // Adding status filter
     );
   });
@@ -137,6 +138,7 @@ const AdminDashboard = () => {
                   <th className="px-4 py-2 border">Date</th>
                   <th className="px-4 py-2 border">Duration</th>
                   <th className="px-4 py-2 border">Department</th>
+                  <th className="px-4 py-2 border">college</th>
                   <th className="px-4 py-2 border">Status</th>
                   <th className="px-4 py-2 border">Actions</th>
                 </tr>
@@ -156,6 +158,7 @@ const AdminDashboard = () => {
                     </td>
                     <td className="px-4 py-2 border">{booking.duration}</td>
                     <td className="px-4 py-2 border">{booking.department}</td>
+                    <td className="px-4 py-2 border">{booking.college}</td>
                     <td className="px-4 py-2 border">{booking.status}</td>
                     <td className="px-4 py-2 border">
                       {booking.status === "approved" && (

@@ -12,6 +12,7 @@ const BookingForm = () => {
     dateofBooking: "",
     duration: "",
     department: "",
+    college: "",
   });
 
   const [bookings, setBookings] = useState([]);
@@ -162,6 +163,21 @@ const BookingForm = () => {
         onChange={handleChange}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
+      <select
+        name="college"
+        onChange={handleChange}
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        <option value="">Select The College</option>
+        <option value="nasc">Nandha Arts and Science College</option>
+        <option value="npc">Nandha College of Pharmacy</option>
+        <option value="npt">Nandha College of Physiotherapy</option>
+        <option value="ncn">Nandha College of Nursing</option>
+        <option value="nsn">Nandha School of Nursing</option>
+        <option value="ncahs">Nandha College of Allied Health Sciences</option>
+        <option value="naahs">Nandha Academy of Allied Health Sciences</option>
+        <option value="nihs">Nandha Institute of Health Science</option>
+      </select>
       <button
         type="submit"
         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
