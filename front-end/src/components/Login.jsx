@@ -70,7 +70,7 @@ const Login = () => {
             type="submit"
             className="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
           >
-            Login.
+            ullapo.
           </button>
         </form>
         <div className="mt-4 text-center">
@@ -80,12 +80,14 @@ const Login = () => {
           >
             Switch to {isRegistering ? "User Login" : "Admin Login"}
           </button>
+          
         </div>
       </div>
     </div>
   );
 };
 
-<h1>kastapattu kandu pudichu ta git use panna</h1>
+
+
 
 export default Login;
