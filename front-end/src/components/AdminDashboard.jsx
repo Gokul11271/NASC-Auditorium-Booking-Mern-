@@ -237,7 +237,7 @@ const AdminDashboard = () => {
         {/* Disapproved Bookings Section */}
         <section className="p-6 bg-gray-50 rounded-lg shadow">
           <h2 className="text-2xl font-semibold text-gray-600 mb-4">
-            Disapproved Bookings
+            Disapproved Bookings.
           </h2>
           <div className="overflow-x-auto">
             <table className="min-w-full border border-gray-300 text-sm text-gray-700">

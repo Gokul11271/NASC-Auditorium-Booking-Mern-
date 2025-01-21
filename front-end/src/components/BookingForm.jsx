@@ -177,6 +177,24 @@ const BookingForm = () => {
         <option value="ncahs">Nandha College of Allied Health Sciences</option>
         <option value="naahs">Nandha Academy of Allied Health Sciences</option>
         <option value="nihs">Nandha Institute of Health Science</option>
+        <option value="nmch">Nandha Medical College and Hospital</option>
+        <option value="namch">
+          Nandha Ayurveda Medical College and Hospital
+        </option>
+        <option value="nsmch">
+          Nandha Siddha Medical College and Hospital
+        </option>
+        <option value="nnyc">
+          Nandha Naturopathy and Yoga Medical College
+        </option>
+        <option value="ndch">Nandha Dental College and Hospital</option>
+        <option value="nec">Nandha Engineering College</option>
+        <option value="nct">Nandha College of Technology</option>
+        <option value="npc">Nandha Polytechnic College</option>
+        <option value="nce">Nandha College of Education</option>
+        <option value="ntti">Nandha Teacher Training Institute</option>
+        <option value="ncs">Nandha Central School</option>
+        <option value="nccs">Nandha Central City School</option>
       </select>
       <button
         type="submit"

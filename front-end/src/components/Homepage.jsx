@@ -80,7 +80,7 @@ const Homepage = () => {
           onClick={handleButtonClick}
           className="mt-8 px-10 py-4 text-xl font-bold bg-teal-500 text-white rounded-full hover:bg-teal-600 transition duration-500 shadow-lg"
         >
-          Book Now
+          Book Now !
         </button>
       </div>
     </div>

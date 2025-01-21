@@ -36,5 +36,5 @@ const MainPage = () => {
     </div>
   );
 };
-
+// nice
 export default MainPage;

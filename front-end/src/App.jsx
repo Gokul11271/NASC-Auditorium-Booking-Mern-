@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Im
 import BookingForm from "./components/BookingForm.jsx";
 import Login from "./components/Login";
 import CancelingForm from "./components/CancelForm.jsx";
-
 import Contact from "./components/Contact.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 import MainPage from "./components/MainPage.jsx";

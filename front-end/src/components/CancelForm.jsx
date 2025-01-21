@@ -130,7 +130,7 @@ const CancelForm = () => {
             type="submit"
             className="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300"
           >
-            Submit Cancel Request
+            Submit CancelRequest
           </button>
         </form>
       </div>

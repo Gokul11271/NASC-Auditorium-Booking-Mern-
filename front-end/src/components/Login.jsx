@@ -70,7 +70,7 @@ const Login = () => {
             type="submit"
             className="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
           >
-            Login
+            Login.
           </button>
         </form>
         <div className="mt-4 text-center">

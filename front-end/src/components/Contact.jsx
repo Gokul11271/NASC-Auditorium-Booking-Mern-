@@ -59,7 +59,7 @@ const Contact = () => {
               />
             </svg>
             <span className="text-lg text-gray-700 dark:text-gray-300">
-              Koorapalayam pirivu, Erode City
+              Koorapalayam pirivu, Erode City .
             </span>
           </div>
           <div className="flex items-center space-x-3">

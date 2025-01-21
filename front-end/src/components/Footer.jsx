@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto text-center">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Auditorium Booking System. All
-          rights reserved..
+          rights reserved
         </p>
         <p className="text-sm mt-2">
           Developed by:{" "}
