@@ -15,4 +15,5 @@ const cancelingSchema = new mongoose.Schema({
 
 const Canceling = mongoose.model('Canceling', cancelingSchema);
 
+
 export default Canceling;

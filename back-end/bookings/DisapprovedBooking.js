@@ -10,6 +10,7 @@ const disapprovedBookingSchema = new mongoose.Schema({
     department: { type: String, required: true },
     status: { type: String, enum: ['disapproved'], default: 'disapproved' }, // Fixed status to 'disapproved'
 }, 
+
 {
     timestamps: true, // Automatically adds createdAt and updatedAt fields
 });
