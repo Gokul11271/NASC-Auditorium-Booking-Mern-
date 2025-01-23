@@ -25,7 +25,7 @@ const Login = () => {
         if (email === "admin@example.com") {
           navigate("/admin.");
         } else {
-          navigate("/bookingform");
+          navigate("/mainpage");
         }
       } else {
         setErrorMessage(result.message);

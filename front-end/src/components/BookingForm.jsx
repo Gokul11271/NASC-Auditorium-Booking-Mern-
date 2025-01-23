@@ -89,12 +89,21 @@ const BookingForm = () => {
     return "";
   };
 
-  // Disable fully booked dates on the calendar
+  // Disable fully booked dates and restrict date range on the calendar
   const isTileDisabled = ({ date }) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize time to midnight
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 30); // Set max booking date to 30 days ahead
+
+    if (date < today || date > maxDate) {
+      return true; // Disable past and beyond 30-day range dates
+    }
+
     const booking = bookings.find(
       (b) => new Date(b.dateofBooking).toDateString() === date.toDateString()
     );
-    return booking?.duration === "Full day";
+    return booking?.duration === "Full day"; // Also disable fully booked dates
   };
 
   return (
@@ -127,35 +136,6 @@ const BookingForm = () => {
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
-      {/* Calendar Component */}
-      <Calendar
-        onChange={(date) => {
-          const adjustedDate = new Date(
-            Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-          );
-          setFormData({
-            ...formData,
-            dateofBooking: adjustedDate.toISOString(),
-          });
-        }}
-        value={
-          formData.dateofBooking ? new Date(formData.dateofBooking) : new Date()
-        }
-        tileClassName={({ date }) => getTileClass({ date })}
-        tileDisabled={({ date }) => isTileDisabled({ date })}
-        className="react-calendar mx-auto"
-      />
-
-      <select
-        name="duration"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        <option value="">Select Time Duration</option>
-        <option value="Full day">Full day</option>
-        <option value="Morning">Morning</option>
-        <option value="Afternoon">Afternoon</option>
-      </select>
       <input
         type="text"
         name="department"
@@ -196,9 +176,61 @@ const BookingForm = () => {
         <option value="ncs">Nandha Central School</option>
         <option value="nccs">Nandha Central City School</option>
       </select>
+      <select
+        name="duration"
+        onChange={handleChange}
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        <option value="">Select Time Duration</option>
+        <option value="Full day">Full day</option>
+        <option value="Morning">Morning</option>
+        <option value="Afternoon">Afternoon</option>
+      </select>
+      {/* Calendar Component */}
+      <div className="calendar-container">
+        <Calendar
+          onChange={(date) => {
+            const adjustedDate = new Date(
+              Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+            );
+            setFormData({
+              ...formData,
+              dateofBooking: adjustedDate.toISOString(),
+            });
+          }}
+          value={
+            formData.dateofBooking
+              ? new Date(formData.dateofBooking)
+              : new Date()
+          }
+          tileClassName={({ date }) => getTileClass({ date })}
+          tileDisabled={({ date }) => isTileDisabled({ date })}
+          minDate={new Date()} // Prevent past dates selection
+          maxDate={new Date(new Date().setDate(new Date().getDate() + 30))} // Limit to next 30 days
+          next2Label={null} // Remove double next arrows
+          prev2Label={null} // Remove double previous arrows
+          navigationLabel={({ date }) =>
+            `${date.toLocaleString("default", {
+              month: "long",
+            })} ${date.getFullYear()}`
+          } // Prevent clicking on the header
+        />
+      </div>
+
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+        className={`w-full py-2 px-4 rounded-md ${
+          Object.values(formData).every(
+            (field) => field && field.toString().trim() !== ""
+          )
+            ? "bg-blue-500 text-white hover:bg-blue-600"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+        }`}
+        disabled={
+          !Object.values(formData).every(
+            (field) => field && field.toString().trim() !== ""
+          )
+        }
       >
         Submit Booking
       </button>
@@ -207,4 +239,3 @@ const BookingForm = () => {
 };
 
 export default BookingForm;
- 

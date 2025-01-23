@@ -105,3 +105,22 @@
     color: white;
     font-weight: bold;
 }
+.react-calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Adjust spacing above the calendar if needed */
+}
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Add spacing above */
+  }
+  
+  .react-calendar {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Optional: add a shadow for better aesthetics */
+    border-radius: 8px; /* Optional: rounded corners */
+    padding: 10px;
+  }
+  
