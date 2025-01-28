@@ -3,12 +3,12 @@ import React from "react";
 const AboutUs = () => {
   const developers = [
     {
-      name: "Gokul",
+      name: "Gokul R",
       description:
         "A skilled frontend developer with expertise in React, MongoDB, and UI/UX design. Gokul has been instrumental in ensuring the project’s responsiveness and user-friendliness.",
     },
     {
-      name: "Moni",
+      name: "Moni N ",
       description:
         "Focused on backend development and database management. Moni played a critical role in designing and optimizing the booking system’s backend.",
     },
@@ -18,12 +18,12 @@ const AboutUs = () => {
         "A creative thinker with a knack for problem-solving. Sachin contributed to integrating real-time functionality and improving overall system performance.",
     },
     {
-      name: "Ilakkeshwaran",
+      name: "Ilakkeshwaran G",
       description:
         "Specialized in testing and debugging, Ilakkeshwaran ensured the project runs smoothly across all platforms, maintaining high-quality standards.",
     },
     {
-      name: "Muthuraj",
+      name: "Muthuraj N",
       description:
         "An all-rounder who contributed to both frontend and backend, Muthuraj provided innovative ideas that enhanced the user experience.",
     },
