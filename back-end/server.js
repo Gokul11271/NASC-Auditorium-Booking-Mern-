@@ -326,3 +326,16 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);
 });
+
+
+/*
+ connect atlas import
+// const port-env.PORT||process.env.PORT;
+// Mongoose.connect(env.MONGO_CONNECTION_STRING).then(() => {
+// console.log("mongoose connected");
+// app.listen(port, () => {
+// console.log("server is running on port " + port);
+// });
+// }).catch(()=>{
+// console.error
+*/
