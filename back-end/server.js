@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-import path from "path";
 import { connectDB } from "./config/db.js";
 import Booking from "./bookings/users.booking.js";
 import Canceling from "./cancelings/cancelForms.js";
@@ -15,7 +14,7 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 const PORT = process.env.PORT || 5000;
-const __dirname = path.resolve();
+
 
 // Middleware
 app.use(express.json());
@@ -34,13 +33,7 @@ app.use(
 // Connect to MongoDB
 connectDB();
 
-// Serve static files in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/front-end/dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "front-end", "dist", "index.html"));
-  });
-}
+
 
 // Twilio client setup for WhatsApp notifications
 const client = twilio(
