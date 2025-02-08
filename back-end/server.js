@@ -20,7 +20,14 @@ const cors= require('cors');
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: "https://auditorium-booking.nandha.org/" }));
+app.use(
+  cors({
+    origin: ["https://auditorium-booking.nandha.org"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true,
+  })
+);
+
 
 // Connect to MongoDB
 connectDB();
