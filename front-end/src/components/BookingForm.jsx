@@ -63,11 +63,16 @@ const BookingForm = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/booking", formData);
+      await axios.post(
+        "https://nasc-auditorium-booking-mern.vercel.app/booking",
+        formData
+      );
       alert("Booking successful!");
 
       // Refresh bookings to reflect new data
-      const updatedBookings = await axios.get("http://localhost:5000/bookings");
+      const updatedBookings = await axios.get(
+        "https://nasc-auditorium-booking-mern.vercel.app/bookings"
+      );
       setBookings(updatedBookings.data.data);
     } catch (error) {
       console.error("Error submitting booking:", error.message);
