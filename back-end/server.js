@@ -22,11 +22,15 @@ const cors= require('cors');
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://auditorium-booking.nandha.org"],
+    origin: [
+      "https://auditorium-booking.nandha.org",
+      "https://nasc-auditorium-booking-mern.vercel.app", // Add this line
+      ],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true,
   })
 );
+
 
 
 // Connect to MongoDB
