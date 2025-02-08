@@ -1,21 +1,22 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "server.js",
-            "use": "@vercel/node"
-        }
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "headers": [
-                { "key": "Access-Control-Allow-Origin", "value": "https://auditorium-booking.nandha.org" },
-                { "key": "Access-Control-Allow-Methods", "value": "GET, POST, PATCH, DELETE, OPTIONS" },
-                { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" },
-                { "key": "Access-Control-Allow-Credentials", "value": "true" }
-            ],
-            "dest": "server.js"
+      {
+        "src": "/(.*)",
+        "dest": "server.js",
+        "headers": {
+          "Access-Control-Allow-Origin": "https://auditorium-booking.nandha.org",
+          "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Allow-Credentials": "true"
         }
+      }
     ]
-}
+  }
+  
