@@ -16,7 +16,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
-const cors= require('cors');
 
 // Middleware
 app.use(express.json());
@@ -24,14 +23,13 @@ app.use(
   cors({
     origin: [
       "https://auditorium-booking.nandha.org",
-      "https://nasc-auditorium-booking-mern.vercel.app", // Add this line
-      ],
+      "http://localhost:3000",
+      "http://localhost:5000",
+    ],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true,
   })
 );
-
-
 
 // Connect to MongoDB
 connectDB();
@@ -98,7 +96,7 @@ app.post("/booking", async (req, res) => {
 
     // Send WhatsApp message
     try {
-      const messageBody = `Hello ${name}, your booking for the event "${eventName}" on ${dateofBooking} has been successfully submitted and approved. Thank you! Booking ID: ${newBooking._id}`;
+      const messageBody = `Hello ${name}, your booking for the event \"${eventName}\" on ${dateofBooking} has been successfully submitted and approved. Thank you! Booking ID: ${newBooking._id}`;
 
       await client.messages.create({
         body: messageBody,
@@ -125,11 +123,7 @@ app.patch("/bookings/:id", async (req, res) => {
         .json({ success: false, message: "Invalid status" });
     }
 
-    const booking = await Booking.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
+    const booking = await Booking.findById(req.params.id);
 
     if (!booking) {
       return res
@@ -153,10 +147,13 @@ app.patch("/bookings/:id", async (req, res) => {
 
       // Notify user about disapproval
       await client.messages.create({
-        body: `Hello ${booking.name}, your booking for the event "${booking.eventName}" on ${booking.dateofBooking} has been disapproved.`,
+        body: `Hello ${booking.name}, your booking for the event \"${booking.eventName}\" on ${booking.dateofBooking} has been disapproved.`,
         from: whatsappNumber,
         to: `whatsapp:+91${booking.mobileNumber}`,
       });
+    } else {
+      booking.status = status;
+      await booking.save();
     }
 
     res.status(200).json({ success: true, data: booking });
