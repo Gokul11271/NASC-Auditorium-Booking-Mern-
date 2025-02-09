@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon back-end/server.js",
-    "build": "npm install && npm install --prefix front-end && npm run build --prefix front-end",
-    "start": "cross-env NODE_ENV=production node back-end/server.js"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "type": "module",
   "keywords": [],
