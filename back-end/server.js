@@ -18,6 +18,8 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+// Middleware
+app.use(express.json());
 app.use(
   cors({
     origin: [
@@ -29,6 +31,9 @@ app.use(
     credentials: true,
   })
 );
+
+// Handle CORS preflight requests
+app.options('*', cors());
 
 // Connect to MongoDB
 connectDB();
