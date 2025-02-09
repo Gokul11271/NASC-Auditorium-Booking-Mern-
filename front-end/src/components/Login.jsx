@@ -12,11 +12,14 @@ const Login = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://nasc-auditorium-booking-mern.vercel.app/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const result = await response.json();
 
@@ -25,7 +28,7 @@ const Login = () => {
         if (email === "admin@example.com") {
           navigate("/admin.");
         } else {
-          navigate("/bookingform");
+          navigate("/mainpage");
         }
       } else {
         setErrorMessage(result.message);
@@ -70,7 +73,7 @@ const Login = () => {
             type="submit"
             className="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
           >
-            Login.
+            Login
           </button>
         </form>
         <div className="mt-4 text-center">

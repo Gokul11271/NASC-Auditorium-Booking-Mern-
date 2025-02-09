@@ -7,15 +7,19 @@ import Contact from "./components/Contact.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 import MainPage from "./components/MainPage.jsx";
 import Homepage from "./components/Homepage.jsx";// Ensure correct import path
+import AboutUs from "./components/About.jsx";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />{" "}
+        <Route path="*" element={<div>404 - Page Not Found</div>} />
+        <Route path="/" element={<Login />} />{" "}
         {/* Main page with Homepage and Contact */}
+        <Route path="/mainpage" element={<MainPage />} />
         <Route path="/bookingform" element={<BookingForm />} />{" "}
         {/* Booking form route */}
+        <Route path="/about" element={<AboutUs />} />{" "}
         <Route path="/cancelingform" element={<CancelingForm />} />{" "}
         {/* Canceling form route */}
         <Route path="/login" element={<Login />} />

@@ -21,7 +21,10 @@ const CancelForm = () => {
       return;
     }
     try {
-      await axios.post("http://localhost:5000/canceling", formData);
+      await axios.post(
+        "https://nasc-auditorium-booking-mern.vercel.app/canceling",
+        formData
+      );
       alert("Cancel request sent successfully!");
     } catch (error) {
       console.error("Error submitting cancel request:", error.message);

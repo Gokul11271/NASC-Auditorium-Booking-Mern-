@@ -13,9 +13,15 @@ const AdminDashboard = () => {
       try {
         const [bookingsResponse, cancelRequestsResponse, disapprovedResponse] =
           await Promise.all([
-            axios.get("http://localhost:5000/bookings"),
-            axios.get("http://localhost:5000/canceling"),
-            axios.get("http://localhost:5000/disapprovedbookings"),
+            axios.get(
+              "https://nasc-auditorium-booking-mern.vercel.app/bookings"
+            ),
+            axios.get(
+              "https://nasc-auditorium-booking-mern.vercel.app/canceling"
+            ),
+            axios.get(
+              "https://nasc-auditorium-booking-mern.vercel.app/disapprovedbookings"
+            ),
           ]);
 
         setBookings(bookingsResponse.data.data || []);
@@ -33,7 +39,7 @@ const AdminDashboard = () => {
   const updateBookingStatus = async (id, status) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/bookings/${id}`,
+        `https://nasc-auditorium-booking-mern.vercel.app/bookings/${id}`,
         { status }
       );
       if (response.data.success) {
@@ -56,7 +62,7 @@ const AdminDashboard = () => {
   const updateCancelStatus = async (id, status) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/canceling/${id}`,
+        `https://nasc-auditorium-booking-mern.vercel.app/canceling/${id}`,
         { status }
       );
       if (response.data.success) {

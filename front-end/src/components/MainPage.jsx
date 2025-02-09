@@ -15,13 +15,7 @@ const MainPage = () => {
       {/* Section 1: Homepage */}
       <section className="homepage-section">
         <Homepage />
-        {/* <div className="mt-6">
-          <h2 className="text-2xl font-bold text-center">
-            Check Auditorium Availability
-          </h2>
-          <p className="text-center">
-            Click on a date to book the auditorium for a specific time slot.</p>
-        </div> */}
+       
       </section>
 
       {/* Section 2: Contact */}
