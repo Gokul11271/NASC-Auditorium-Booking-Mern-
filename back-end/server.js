@@ -50,7 +50,7 @@ const whatsappNumber = `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`;
 // ================= Routes ================= //
 
 // Get all bookings
-app.listen("/", async (req, res) => {
+app.listen(5000, () => {
   console.log("done");
 });
 app.get("/bookings", async (req, res) => {
