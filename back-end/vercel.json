@@ -1,9 +1,12 @@
 {
   "version": 2,
   "builds": [
-    { "src": "server.js", "use": "@vercel/node" }
+    { "src": "api/index.js", "use": "@vercel/node" }
   ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/server.js" }
-  ]
+  "env": {
+    "MONGO_URI": "your_mongo_connection_string",
+    "TWILIO_ACCOUNT_SID": "your_twilio_account_sid",
+    "TWILIO_AUTH_TOKEN": "your_twilio_auth_token",
+    "TWILIO_WHATSAPP_NUMBER": "your_twilio_whatsapp_number"
+  }
 }
