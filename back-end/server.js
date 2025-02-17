@@ -13,6 +13,7 @@ dotenv.config();
 
 // Initialize Express app
 const app = express();
+export default app; 
 const PORT = process.env.PORT || 5000;
 
 
