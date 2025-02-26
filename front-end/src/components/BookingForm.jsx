@@ -20,7 +20,7 @@ const BookingForm = () => {
   useEffect(() => {
     // Fetch existing bookings from the server
     axios
-      .get("http://localhost:5000/bookings")
+      .get("https://nasc-auditorium-booking-mern.vercel.app/bookings")
       .then((response) => {
         console.log("Fetched bookings:", response.data);
         setBookings(response.data.data); // Ensure correct response structure
