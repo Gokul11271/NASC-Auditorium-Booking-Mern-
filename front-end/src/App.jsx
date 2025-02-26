@@ -8,6 +8,7 @@ import AdminDashboard from "./components/AdminDashboard.jsx";
 import MainPage from "./components/MainPage.jsx";
 import Homepage from "./components/Homepage.jsx";// Ensure correct import path
 import AboutUs from "./components/About.jsx";
+import H from "./components/A-incharge.jsx";
 
 const App = () => {
   return (
@@ -28,6 +29,8 @@ const App = () => {
         {/* Contact route */}
         <Route path="/admin." element={<AdminDashboard />} />{" "}
         {/* Admin dashboard route */}
+       <Route path="/A-inclarge" element={<H />} />
+        {/* A-inclarge route */}
       </Routes>
     </Router>
   );

@@ -191,6 +191,21 @@ const BookingForm = () => {
         <option value="Morning">Morning</option>
         <option value="Afternoon">Afternoon</option>
       </select>
+      <div className="flex items-center justify-center space-x-4 mb-4">
+        <div className="flex items-center space-x-2">
+          <span className="w-4 h-4 bg-red-500 rounded-full"></span>
+          <span className="text-sm text-gray-700">Full Day Booked</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="w-4 h-4 bg-yellow-500 rounded-full"></span>
+          <span className="text-sm text-gray-700">Morning Booked</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <span className="w-4 h-4 bg-blue-500 rounded-full"></span>
+          <span className="text-sm text-gray-700">Afternoon Booked</span>
+        </div>
+      </div>
+
       {/* Calendar Component */}
       <div className="calendar-container">
         <Calendar
