@@ -81,35 +81,51 @@ const BookingForm = () => {
   };
 
   // Get class for booking durations to highlight them on the calendar
-  const getTileClass = ({ date }) => {
-    const booking = bookings.find(
-      (b) => new Date(b.dateofBooking).toDateString() === date.toDateString()
-    );
+const getTileClass = ({ date }) => {
+  const morningBooked = bookings.some(
+    (b) =>
+      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+      b.duration === "Morning"
+  );
 
-    if (booking) {
-      if (booking.duration === "Full day") return "full-day-booked";
-      if (booking.duration === "Morning") return "morning-booked";
-      if (booking.duration === "Afternoon") return "afternoon-booked";
-    }
-    return "";
-  };
+  const afternoonBooked = bookings.some(
+    (b) =>
+      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+      b.duration === "Afternoon"
+  );
 
-  // Disable fully booked dates and restrict date range on the calendar
-  const isTileDisabled = ({ date }) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Normalize time to midnight
-    const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 30); // Set max booking date to 30 days ahead
+  if (morningBooked && afternoonBooked) return "full-day-booked"; // Red (both slots booked)
+  if (morningBooked) return "morning-booked"; // Yellow (morning booked)
+  if (afternoonBooked) return "afternoon-booked"; // Blue (afternoon booked)
 
-    if (date < today || date > maxDate) {
-      return true; // Disable past and beyond 30-day range dates
-    }
+  return "";
+};
 
-    const booking = bookings.find(
-      (b) => new Date(b.dateofBooking).toDateString() === date.toDateString()
-    );
-    return booking?.duration === "Full day"; // Also disable fully booked dates
-  };
+const isTileDisabled = ({ date }) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const maxDate = new Date();
+  maxDate.setDate(today.getDate() + 30);
+
+  if (date < today || date > maxDate) {
+    return true;
+  }
+
+  const morningBooked = bookings.some(
+    (b) =>
+      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+      b.duration === "Morning"
+  );
+
+  const afternoonBooked = bookings.some(
+    (b) =>
+      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+      b.duration === "Afternoon"
+  );
+
+  return morningBooked && afternoonBooked; // Disable date if both slots are booked
+};
+
 
   return (
     <form
