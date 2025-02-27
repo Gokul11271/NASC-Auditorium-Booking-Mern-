@@ -27,6 +27,8 @@ const Login = () => {
         alert(`${result.role} login successful`);
         if (email === "admin@example.com") {
           navigate("/admin.");
+        } else if (email === "manager@example.com") {
+          navigate("/A-inclarge");
         } else {
           navigate("/mainpage");
         }
