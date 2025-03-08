@@ -95,16 +95,17 @@
 }
 
 .morning-booked {
-    background-color: #ffd966; /* Yellow for morning booked */
+    background-color: #ffd966;
     color: black;
     font-weight: bold;
 }
 
 .afternoon-booked {
-    background-color: #66b3ff; /* Blue for afternoon booked */
+    background-color: #66b3ff;
     color: white;
     font-weight: bold;
 }
+
 .react-calendar-container {
     display: flex;
     justify-content: center;
