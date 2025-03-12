@@ -129,7 +129,19 @@ const BookingForm = () => {
         b.duration === "Afternoon"
     );
 
-    return morningBooked && afternoonBooked; // Disable date if both slots are booked
+    if (morningBooked && afternoonBooked) return true; // Disable date if both slots are booked
+
+    const fullDayBooked = bookings.some(
+      (b) =>
+        new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+        b.duration === "Full day"
+    );
+
+    return (
+      fullDayBooked ||
+      (morningBooked && formData.duration === "Full day") ||
+      (afternoonBooked && formData.duration === "Full day")
+    );
   };
 
   return (
