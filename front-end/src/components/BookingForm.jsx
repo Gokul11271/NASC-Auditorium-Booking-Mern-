@@ -81,51 +81,56 @@ const BookingForm = () => {
   };
 
   // Get class for booking durations to highlight them on the calendar
-const getTileClass = ({ date }) => {
-  const morningBooked = bookings.some(
-    (b) =>
-      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
-      b.duration === "Morning"
-  );
+  const getTileClass = ({ date }) => {
+    const fulldaybooked = bookings.some(
+      (b) =>
+        new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+        b.duration === "Full day"
+    );
+    const morningBooked = bookings.some(
+      (b) =>
+        new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+        b.duration === "Morning"
+    );
 
-  const afternoonBooked = bookings.some(
-    (b) =>
-      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
-      b.duration === "Afternoon"
-  );
+    const afternoonBooked = bookings.some(
+      (b) =>
+        new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+        b.duration === "Afternoon"
+    );
 
-  if (morningBooked && afternoonBooked) return "full-day-booked"; // Red (both slots booked)
-  if (morningBooked) return "morning-booked"; // Yellow (morning booked)
-  if (afternoonBooked) return "afternoon-booked"; // Blue (afternoon booked)
+    if (fulldaybooked || (morningBooked && afternoonBooked))
+      return "full-day-booked"; // Red (both slots booked)
+    if (morningBooked) return "morning-booked"; // Yellow (morning booked)
+    if (afternoonBooked) return "afternoon-booked"; // Blue (afternoon booked)
 
-  return "";
-};
+    return "";
+  };
 
-const isTileDisabled = ({ date }) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const maxDate = new Date();
-  maxDate.setDate(today.getDate() + 30);
+  const isTileDisabled = ({ date }) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 30);
 
-  if (date < today || date > maxDate) {
-    return true;
-  }
+    if (date < today || date > maxDate) {
+      return true;
+    }
 
-  const morningBooked = bookings.some(
-    (b) =>
-      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
-      b.duration === "Morning"
-  );
+    const morningBooked = bookings.some(
+      (b) =>
+        new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+        b.duration === "Morning"
+    );
 
-  const afternoonBooked = bookings.some(
-    (b) =>
-      new Date(b.dateofBooking).toDateString() === date.toDateString() &&
-      b.duration === "Afternoon"
-  );
+    const afternoonBooked = bookings.some(
+      (b) =>
+        new Date(b.dateofBooking).toDateString() === date.toDateString() &&
+        b.duration === "Afternoon"
+    );
 
-  return morningBooked && afternoonBooked; // Disable date if both slots are booked
-};
-
+    return morningBooked && afternoonBooked; // Disable date if both slots are booked
+  };
 
   return (
     <form
@@ -156,7 +161,6 @@ const isTileDisabled = ({ date }) => {
         onChange={handleChange}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
-
       <input
         type="text"
         name="department"
@@ -175,7 +179,7 @@ const isTileDisabled = ({ date }) => {
         <option value="npt">Nandha College of Physiotherapy</option>
         <option value="ncn">Nandha College of Nursing</option>
         <option value="ncn">Nandha BED Teacher Training </option>
-        <option value="ncn">Nandha Acedemy of Allied Health Sciences</option>
+        <option value="ncn">Nandha Academy of Allied Health Sciences</option>
       </select>
       <select
         name="duration"
@@ -187,22 +191,6 @@ const isTileDisabled = ({ date }) => {
         <option value="Morning">Morning</option>
         <option value="Afternoon">Afternoon</option>
       </select>
-      <div className="flex items-center justify-center space-x-4 mb-4">
-        <div className="flex items-center space-x-2">
-          <span className="w-4 h-4 bg-red-500 rounded-full"></span>
-          <span className="text-sm text-gray-700">Full Day Booked</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <span className="w-4 h-4 bg-yellow-500 rounded-full"></span>
-          <span className="text-sm text-gray-700">Morning Booked</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <span className="w-4 h-4 bg-blue-500 rounded-full"></span>
-          <span className="text-sm text-gray-700">Afternoon Booked</span>
-        </div>
-      </div>
-
-      {/* Calendar Component */}
       <div className="calendar-container">
         <Calendar
           onChange={(date) => {
@@ -219,20 +207,10 @@ const isTileDisabled = ({ date }) => {
               ? new Date(formData.dateofBooking)
               : new Date()
           }
-          tileClassName={({ date }) => getTileClass({ date })}
-          tileDisabled={({ date }) => isTileDisabled({ date })}
-          minDate={new Date()} // Prevent past dates selection
-          maxDate={new Date(new Date().setDate(new Date().getDate() + 30))} // Limit to next 30 days
-          next2Label={null} // Remove double next arrows
-          prev2Label={null} // Remove double previous arrows
-          navigationLabel={({ date }) =>
-            `${date.toLocaleString("default", {
-              month: "long",
-            })} ${date.getFullYear()}`
-          } // Prevent clicking on the header
+          tileClassName={getTileClass}
+          tileDisabled={isTileDisabled}
         />
       </div>
-
       <button
         type="submit"
         className={`w-full py-2 px-4 rounded-md ${
