@@ -8,6 +8,7 @@ import Login from "./logins/login.model.js";
 import cors from "cors";
 import twilio from "twilio";
 
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -15,6 +16,7 @@ dotenv.config();
 const app = express();
 export default app; 
 const PORT = process.env.PORT || 5000;
+const nodemailer = require("nodemailer");
 
 
 // Middleware
