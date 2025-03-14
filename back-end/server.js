@@ -67,7 +67,6 @@ app.post("/booking", async (req, res) => {
   try {
     const {
       name,
-      email,
       mobileNumber,
       eventName,
       dateofBooking,
@@ -78,7 +77,6 @@ app.post("/booking", async (req, res) => {
 
     if (
       !name ||
-      !email ||
       !mobileNumber ||
       !eventName ||
       !dateofBooking ||
