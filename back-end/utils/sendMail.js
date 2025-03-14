@@ -1,5 +1,4 @@
-// utils/sendMail.js
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 const sendConfirmationMail = async (userEmail, bookingDetails) => {
   try {
@@ -25,4 +24,4 @@ const sendConfirmationMail = async (userEmail, bookingDetails) => {
   }
 };
 
-module.exports = sendConfirmationMail;
+export default sendConfirmationMail; // <-- Use export default for consistency
