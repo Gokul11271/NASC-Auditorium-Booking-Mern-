@@ -7,6 +7,7 @@ import "./BookingForm.css"; // Custom styles for React Calendar
 const BookingForm = () => {
   const [formData, setFormData] = useState({
     name: "",
+    email: "", // <-- Added email field
     mobileNumber: "",
     eventName: "",
     dateofBooking: "",
@@ -156,6 +157,13 @@ const BookingForm = () => {
         type="text"
         name="name"
         placeholder="Full Name"
+        onChange={handleChange}
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email Address"
         onChange={handleChange}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
