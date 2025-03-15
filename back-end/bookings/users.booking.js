@@ -4,7 +4,7 @@ import sendConfirmationMail from "../utils/sendMail.js"; // Import the email fun
 const bookingSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true }, // Add this field
+    email: { type: String, required: true },
     mobileNumber: { type: Number, required: true },
     eventName: { type: String, required: true },
     dateofBooking: { type: String, required: true },
@@ -25,16 +25,19 @@ const bookingSchema = new mongoose.Schema(
 // Send email only when the booking is approved
 bookingSchema.post("save", async function (doc) {
   try {
+    console.log(`Booking saved, status: ${doc.status}`);
     if (doc.status === "approved") {
       const bookingDetails = {
         event: doc.eventName,
         date: doc.dateofBooking,
         slot: doc.duration,
       };
-      await sendConfirmationMail(doc.email, bookingDetails); // <-- Using the email field here
+      console.log(`Sending email to: ${doc.email}`);
+      await sendConfirmationMail(doc.email, bookingDetails);
+      console.log("Email function executed");
     }
   } catch (error) {
-    console.error("Failed to send confirmation email:", error);
+    console.error("Failed to send confirmation email:", error.message);
   }
 });
 
