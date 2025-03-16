@@ -22,22 +22,28 @@ const bookingSchema = new mongoose.Schema(
   }
 );
 
-// Send email only when the booking is approved
-bookingSchema.post("save", async function (doc) {
-  try {
-    console.log(`Booking saved, status: ${doc.status}`);
-    if (doc.status === "approved") {
-      const bookingDetails = {
-        event: doc.eventName,
-        date: doc.dateofBooking,
-        slot: doc.duration,
-      };
-      console.log(`Sending email to: ${doc.email}`);
-      await sendConfirmationMail(doc.email, bookingDetails);
-      console.log("Email function executed");
-    }
-  } catch (error) {
-    console.error("Failed to send confirmation email:", error.message);
+// Send email only when a new booking is approved
+bookingSchema.post("save", function (doc) {
+  console.log(`Booking saved. Status: ${doc.status}`);
+
+  if (doc.status === "approved" && doc.isNew) {
+    const bookingDetails = {
+      event: doc.eventName,
+      date: doc.dateofBooking,
+      slot: doc.duration,
+    };
+
+    console.log(`Sending email to: ${doc.email}`);
+
+    // Use process.nextTick to ensure the email sends after saving
+    process.nextTick(async () => {
+      try {
+        await sendConfirmationMail(doc.email, bookingDetails);
+        console.log("Email sent successfully.");
+      } catch (error) {
+        console.error("Failed to send confirmation email:", error.message);
+      }
+    });
   }
 });
 
