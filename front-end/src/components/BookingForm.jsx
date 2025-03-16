@@ -197,9 +197,9 @@ const BookingForm = () => {
         <option value="nasc">Nandha Arts and Science College</option>
         <option value="npc">Nandha College of Pharmacy</option>
         <option value="npt">Nandha College of Physiotherapy</option>
-        <option value="ncn">Nandha College of Nursing</option>
-        <option value="ncn">Nandha BED Teacher Training </option>
-        <option value="ncn">Nandha Academy of Allied Health Sciences</option>
+        <option value="ncn-nursing">Nandha College of Nursing</option>
+        <option value="ncn-bed">Nandha BED Teacher Training</option>
+        <option value="naahs">Nandha Academy of Allied Health Sciences</option>
       </select>
       <select
         name="duration"
