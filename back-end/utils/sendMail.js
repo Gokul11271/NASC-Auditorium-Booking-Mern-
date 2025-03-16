@@ -23,7 +23,7 @@ const sendConfirmationMail = async (userEmail, bookingDetails) => {
 
     // Email options
     const mailOptions = {
-      from: `"Nandha arts and science college Auditorium Booking Team" <${process.env.EMAIL}>`,
+      from: `"Auditorium Booking Team" <${process.env.EMAIL}>`,
       to: userEmail,
       subject: "✅ Your Booking is Confirmed",
       html: `
@@ -31,14 +31,17 @@ const sendConfirmationMail = async (userEmail, bookingDetails) => {
     <p>Hello <strong>${userEmail}</strong>,</p>
     <p>Your auditorium booking has been successfully confirmed.</p>
     <ul>
+      <li><strong>Booking ID:</strong> ${bookingDetails.id}</li>
       <li><strong>Event:</strong> ${bookingDetails.event}</li>
       <li><strong>Date:</strong> ${bookingDetails.date}</li>
       <li><strong>Slot:</strong> ${bookingDetails.slot}</li>
     </ul>
+    <p>Use this Booking ID for any future reference.</p>
     <p>Thank you for using our service!</p>
     <p><em>This is an automated email, please do not reply.</em></p>
   `,
     };
+
 
 
     console.log("Sending email...");

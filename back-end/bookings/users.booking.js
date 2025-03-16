@@ -26,26 +26,27 @@ const bookingSchema = new mongoose.Schema(
 bookingSchema.post("save", function (doc) {
   console.log(`Booking saved. Status: ${doc.status}`);
 
-  if (doc.status === "approved") {
+  if (doc.status === "approved" && doc.isNew) {
     const bookingDetails = {
+      id: doc._id.toString(), // Convert ObjectId to string
       event: doc.eventName,
       date: doc.dateofBooking,
       slot: doc.duration,
     };
 
-    console.log(`📨 Sending email to: ${doc.email}`);
+    console.log(`Sending email to: ${doc.email}`);
 
-    // Use process.nextTick to ensure the email sends after saving
     process.nextTick(async () => {
       try {
         await sendConfirmationMail(doc.email, bookingDetails);
-        console.log("✅ Email sent successfully.");
+        console.log("Email sent successfully.");
       } catch (error) {
-        console.error("❌ Failed to send confirmation email:", error.message);
+        console.error("Failed to send confirmation email:", error.message);
       }
     });
   }
 });
+
 
 const Booking = mongoose.model("Booking", bookingSchema);
 
