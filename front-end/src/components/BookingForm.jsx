@@ -37,7 +37,33 @@ const BookingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //newly add to check in console
+    console.log("📤 Sending Booking Data:", formData);
+    
 
+    try {
+      const response = await fetch(
+        "https://nasc-auditorium-booking-mern.vercel.app/booking",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData), // ✅ Sending correct data
+        }
+      );
+
+      const result = await response.json();
+      console.log("✅ Booking Response:", result);
+
+      if (response.ok) {
+        alert("Booking request submitted successfully!");
+      } else {
+        alert(`Failed to submit booking: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("❌ Error submitting booking:", error);
+      alert("Error submitting booking request. Please try again.");
+    }
+    // wnned to check in console
     // Check for empty fields
     if (
       !Object.values(formData).every(

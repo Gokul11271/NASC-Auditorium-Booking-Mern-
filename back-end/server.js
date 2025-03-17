@@ -8,6 +8,7 @@ import Login from "./logins/login.model.js";
 import cors from "cors";
 import twilio from "twilio";
 
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -47,20 +48,95 @@ const client = twilio(
   process.env.TWILIO_AUTH_TOKEN
 );
 const whatsappNumber = `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`;
+const nodemailer = require("nodemailer");
+
 
 // ================= Routes ================= //
 
 // Get all bookings
 
-app.get("/bookings", async (req, res) => {
+// app.get("/bookings", async (req, res) => {
+//   try {
+//     const bookings = await Booking.find();
+//     res.status(200).json({ success: true, data: bookings });
+//   } catch (error) {
+//     console.error("Error fetching bookings:", error.message);
+//     res.status(500).json({ success: false, message: "Server Error" });
+//   }
+// });
+
+
+app.post("/booking", async (req, res) => {
   try {
-    const bookings = await Booking.find();
-    res.status(200).json({ success: true, data: bookings });
+    const {
+      name,
+      email, // ✅ Email required
+      mobileNumber,
+      eventName,
+      dateofBooking,
+      duration,
+      department,
+      college,
+    } = req.body;
+
+    // ✅ Check if all fields are present
+    if (
+      !name ||
+      !email || // ✅ Ensure email is provided
+      !mobileNumber ||
+      !eventName ||
+      !dateofBooking ||
+      !duration ||
+      !department ||
+      !college
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required." });
+    }
+
+    // ✅ Save booking to DB
+    const newBooking = new Booking(req.body);
+    await newBooking.save();
+
+    // ✅ Convert date to readable format
+    const readableDate = new Date(dateofBooking).toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+
+    // ✅ Email Notification
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "your-email@gmail.com", // Replace with your email
+          pass: "your-email-password", // Replace with your app password
+        },
+      });
+
+      const mailOptions = {
+        from: "your-email@gmail.com",
+        to: email,
+        subject: "Booking Confirmation - NASC Auditorium",
+        text: `Hello ${name},\n\nYour booking for "${eventName}" on ${readableDate} has been confirmed.\n\nBooking ID: ${newBooking._id}\n\nThank you!`,
+      };
+
+      await transporter.sendMail(mailOptions);
+      console.log("✅ Email Sent to:", email);
+    } catch (emailError) {
+      console.error("⚠️ Failed to send email:", emailError.message);
+    }
+
+    // ✅ Respond to frontend
+    res.status(201).json({ success: true, data: newBooking });
   } catch (error) {
-    console.error("Error fetching bookings:", error.message);
+    console.error("❌ Error in booking:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 });
+
 
 // Create a new booking and send WhatsApp confirmation
 app.post("/booking", async (req, res) => {
