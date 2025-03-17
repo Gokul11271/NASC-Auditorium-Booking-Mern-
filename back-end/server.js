@@ -69,54 +69,70 @@ app.get("/bookings", async (req, res) => {
 
 
 // Create a new booking and send WhatsApp confirmation
+// app.post("/booking", async (req, res) => {
+//   try {
+//     const {
+//       name,
+//       mobileNumber,
+//       eventName,
+//       dateofBooking,
+//       duration,
+//       department,
+//       college,
+//     } = req.body;
+
+//     if (
+//       !name ||
+//       !mobileNumber ||
+//       !eventName ||
+//       !dateofBooking ||
+//       !duration ||
+//       !department ||
+//       !college
+//     ) {
+//       return res
+//         .status(400)
+//         .json({ success: false, message: "All fields are required." });
+//     }
+
+//     const newBooking = new Booking(req.body);
+//     await newBooking.save();
+
+//     res.status(201).json({ success: true, data: newBooking });
+
+//     // Send WhatsApp message
+//     try {
+//       const messageBody = `Hello ${name}, your booking for the event \"${eventName}\" on ${dateofBooking} has been successfully submitted and approved. Thank you! Booking ID: ${newBooking._id}`;
+
+//       await client.messages.create({
+//         body: messageBody,
+//         from: whatsappNumber,
+//         to: `whatsapp:+91${mobileNumber}`,
+//       });
+//     } catch (whatsappError) {
+//       console.error("Failed to send WhatsApp message:", whatsappError.message);
+//     }
+//   } catch (error) {
+//     console.error("Error in booking:", error.message);
+//     res.status(500).json({ success: false, message: "Server Error" });
+//   }
+// });
 app.post("/booking", async (req, res) => {
   try {
-    const {
-      name,
-      mobileNumber,
-      eventName,
-      dateofBooking,
-      duration,
-      department,
-      college,
-    } = req.body;
-
-    if (
-      !name ||
-      !mobileNumber ||
-      !eventName ||
-      !dateofBooking ||
-      !duration ||
-      !department ||
-      !college
-    ) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required." });
-    }
+    console.log("🔥 New Booking Request Received:", req.body);
 
     const newBooking = new Booking(req.body);
     await newBooking.save();
 
+    console.log("✅ Booking saved to the database:", newBooking);
+
     res.status(201).json({ success: true, data: newBooking });
-
-    // Send WhatsApp message
-    try {
-      const messageBody = `Hello ${name}, your booking for the event \"${eventName}\" on ${dateofBooking} has been successfully submitted and approved. Thank you! Booking ID: ${newBooking._id}`;
-
-      await client.messages.create({
-        body: messageBody,
-        from: whatsappNumber,
-        to: `whatsapp:+91${mobileNumber}`,
-      });
-    } catch (whatsappError) {
-      console.error("Failed to send WhatsApp message:", whatsappError.message);
-    }
   } catch (error) {
-    console.error("Error in booking:", error.message);
+    console.error("❌ Error in booking:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 });
+
 
 // Update booking status (approve/disapprove)
 app.patch("/bookings/:id", async (req, res) => {
