@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import sendConfirmationMail from "../utils/sendMail.js"; // Import email function
 
+
 const bookingSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },

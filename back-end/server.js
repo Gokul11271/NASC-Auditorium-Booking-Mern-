@@ -6,6 +6,7 @@ import Canceling from "./cancelings/cancelForms.js";
 import DisapprovedBooking from "./bookings/DisapprovedBooking.js";
 import Login from "./logins/login.model.js";
 import cors from "cors";
+import nodemailer from "nodemailer";
 import twilio from "twilio";
 
 // Load environment variables from .env file
@@ -47,7 +48,6 @@ const client = twilio(
   process.env.TWILIO_AUTH_TOKEN
 );
 const whatsappNumber = `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`;
-
 
 
 // ================= Routes ================= //
