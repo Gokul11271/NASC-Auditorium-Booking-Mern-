@@ -46,11 +46,12 @@ const bookingSchema = new mongoose.Schema(
 //     });
 //   }
 // });
+// Send email **only** when a new booking is approved
 bookingSchema.post("save", function (doc) {
-  console.log("🔥 New booking saved:", doc);
+  console.log(`🔹 Booking saved. Status: ${doc.status}`);
 
-  if (doc.status === "approved" && doc.isNew) {
-    console.log("✅ Booking is approved. Preparing to send email...");
+  if (doc.status === "approved") {
+    console.log(`📧 Preparing to send email to: ${doc.email}`);
 
     const bookingDetails = {
       id: doc._id.toString(),
@@ -58,8 +59,6 @@ bookingSchema.post("save", function (doc) {
       date: doc.dateofBooking,
       slot: doc.duration,
     };
-
-    console.log(`📤 Sending email to: ${doc.email}`);
 
     process.nextTick(async () => {
       try {
@@ -70,9 +69,10 @@ bookingSchema.post("save", function (doc) {
       }
     });
   } else {
-    console.log("⚠️ Booking status is not 'approved', skipping email.");
+    console.log("🚫 Booking is not approved. Email will not be sent.");
   }
 });
+
 
 
 const Booking = mongoose.model("Booking", bookingSchema);
