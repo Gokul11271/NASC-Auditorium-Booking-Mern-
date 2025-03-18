@@ -43,11 +43,6 @@ connectDB();
 
 
 // Twilio client setup for WhatsApp notifications
-const client = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
-const whatsappNumber = `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`;
 
 
 // ================= Routes ================= //
@@ -117,14 +112,96 @@ app.get("/bookings", async (req, res) => {
 //     res.status(500).json({ success: false, message: "Server Error" });
 //   }
 // });
+// app.post("/booking", async (req, res) => {
+//   try {
+//     console.log("🔥 New Booking Request Received:", req.body);
+
+//     const newBooking = new Booking(req.body);
+//     await newBooking.save();
+
+//     console.log("✅ Booking saved to the database:", newBooking);
+
+//     res.status(201).json({ success: true, data: newBooking });
+//   } catch (error) {
+//     console.error("❌ Error in booking:", error.message);
+//     res.status(500).json({ success: false, message: "Server Error" });
+//   }
+// });
+
 app.post("/booking", async (req, res) => {
   try {
     console.log("🔥 New Booking Request Received:", req.body);
+
+    const {
+      name,
+      email,
+      mobileNumber,
+      eventName,
+      dateofBooking,
+      duration,
+      department,
+      college,
+    } = req.body;
+
+    if (
+      !name ||
+      !email ||
+      !mobileNumber ||
+      !eventName ||
+      !dateofBooking ||
+      !duration ||
+      !department ||
+      !college
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required." });
+    }
 
     const newBooking = new Booking(req.body);
     await newBooking.save();
 
     console.log("✅ Booking saved to the database:", newBooking);
+
+    // Nodemailer Configuration
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "your-email@gmail.com", // Replace with your email
+        pass: "your-email-password", // Replace with your email password or App Password (recommended)
+      },
+    });
+
+    // Email Content
+    const mailOptions = {
+      from: '"Auditorium Booking" <your-email@gmail.com>',
+      to: email,
+      subject: "Auditorium Booking Confirmation",
+      html: `
+        <h2>Hello ${name},</h2>
+        <p>Your booking for the event "<strong>${eventName}</strong>" has been successfully submitted.</p>
+        <p><strong>Booking Details:</strong></p>
+        <ul>
+          <li><strong>Date:</strong> ${new Date(
+            dateofBooking
+          ).toDateString()}</li>
+          <li><strong>Time Slot:</strong> ${duration}</li>
+          <li><strong>Department:</strong> ${department}</li>
+          <li><strong>College:</strong> ${college}</li>
+        </ul>
+        <p>Thank you for booking with us.</p>
+        <p>Regards,<br/>Auditorium Management Team</p>
+      `,
+    };
+
+    // Send Email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("❌ Email send failed:", error.message);
+      } else {
+        console.log("📧 Email sent:", info.response);
+      }
+    });
 
     res.status(201).json({ success: true, data: newBooking });
   } catch (error) {

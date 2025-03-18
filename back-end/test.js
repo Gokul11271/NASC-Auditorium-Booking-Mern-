@@ -4,7 +4,7 @@ import sendConfirmationMail from "./utils/sendMail.js";
 const testEmail = "mouniganatarajan@gmail.com";
 const bookingDetails = {
   event: "Test Event",
-  date: "2025-03-29",
+  date: "2025-03-30",
   slot: "Morning",
 };
 
