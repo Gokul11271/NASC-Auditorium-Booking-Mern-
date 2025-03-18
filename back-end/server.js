@@ -7,7 +7,7 @@ import DisapprovedBooking from "./bookings/DisapprovedBooking.js";
 import Login from "./logins/login.model.js";
 import cors from "cors";
 import nodemailer from "nodemailer";
-import twilio from "twilio";
+
 
 // Load environment variables from .env file
 dotenv.config();
@@ -16,6 +16,8 @@ dotenv.config();
 const app = express();
 export default app; 
 const PORT = process.env.PORT || 5000;
+
+
 
 
 // Middleware
