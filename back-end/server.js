@@ -159,18 +159,33 @@ app.post("/booking", async (req, res) => {
         .status(400)
         .json({ success: false, message: "All fields are required." });
     }
+//new code added morning 
+    // Convert date for comparison (ignoring time)
+    const formattedDate = new Date(dateofBooking).toISOString().split("T")[0];
 
+    // Check if a booking already exists for the same date and duration
+    const existingBooking = await Booking.findOne({
+      dateofBooking: formattedDate,
+      duration: duration,
+    });
+
+    if (existingBooking) {
+      return res
+        .status(400)
+        .json({ success: false, message: "This slot is already booked." });
+    }
+//new code added untilll here 
+    // Save new booking if no duplicate found
     const newBooking = new Booking(req.body);
     await newBooking.save();
-
     console.log("✅ Booking saved to the database:", newBooking);
 
     // Nodemailer Configuration
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "your-email@gmail.com", // Replace with your email
-        pass: "your-email-password", // Replace with your email password or App Password (recommended)
+        user: "your-email@gmail.com",
+        pass: "your-email-password",
       },
     });
 
@@ -211,6 +226,7 @@ app.post("/booking", async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 });
+
 
 
 // Update booking status (approve/disapprove)
