@@ -28,8 +28,9 @@ const Homepage = () => {
       <header className="flex items-center justify-between h-20 px-8 absolute top-0 left-0 w-full z-10 bg-transparent">
         {/* Logo and Title */}
         <div className="flex items-center">
-          <img src={Logo} alt="Logo" className="w-32 mr-4" />
-          <h2 className="text-white font-semibold text-lg md:text-xl">
+          <img src={Logo} alt="Logo" className="w-32 mr-4 translate-y-1" />
+
+          <h2 className="text-white font-semibold text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl text-center max-w-[90%] sm:max-w-full break-words leading-tight">
             NANDHA ARTS AND SCIENCE COLLEGE (AUTONOMOUS)
           </h2>
         </div>
