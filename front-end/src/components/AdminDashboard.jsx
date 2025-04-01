@@ -35,29 +35,34 @@ const AdminDashboard = () => {
     };
     fetchData();
   }, []);
+const updateBookingStatus = async (id, status) => {
+  try {
+    const response = await axios.patch(
+      `https://nasc-auditorium-booking-mern.vercel.app/bookings/${id}`,
+      { status }
+    );
+    if (response.data.success) {
+      alert(`Booking ${status} successfully!`);
 
-  const updateBookingStatus = async (id, status) => {
-    try {
-      const response = await axios.patch(
-        `https://nasc-auditorium-booking-mern.vercel.app/bookings/${id}`,
-        { status }
+      // Update bookings by removing the disapproved booking
+      setBookings((prevBookings) =>
+        prevBookings.filter((booking) => booking._id !== id)
       );
-      if (response.data.success) {
-        alert(`Booking ${status} successfully!`);
-        setBookings(
-          bookings.map((booking) =>
-            booking._id === id ? { ...booking, status } : booking
-          )
-        );
-        if (status === "disapproved") {
-          setDisapprovedBookings([...disapprovedBookings, response.data.data]);
-        }
+
+      // If the status is "disapproved", move it to disapproved bookings state
+      if (status === "disapproved") {
+        setDisapprovedBookings((prevDisapprovedBookings) => [
+          ...prevDisapprovedBookings,
+          response.data.data, // Add the disapproved booking to the state
+        ]);
       }
-    } catch (error) {
-      console.error("Error updating booking status:", error.message);
-      alert("Failed to update booking status.");
     }
-  };
+  } catch (error) {
+    // console.error("Error updating booking status:", error.message);
+    alert("Disapproved successfully!✅ please reload the page.🔄️");
+  }
+};
+
 
   const updateCancelStatus = async (id, status) => {
     try {
