@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "./img/Pi7_NASC LOGO.png"; // Ensure this is the correct path
 import first from "./img/first.mp4"; // Ensure this is the correct path
 
 const Homepage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle the menu
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to check user login status
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // Clear session
+    setIsLoggedIn(false);
+    navigate("/login"); // Redirect to login
+  };
 
   const handleButtonClick = () => {
     navigate("/bookingform");
@@ -95,15 +109,28 @@ const Homepage = () => {
                 CancelingForm
               </Link>
             </li>
-            <li className="py-2 md:py-0">
-              <Link
-                to="/login"
-                className="block px-4 py-2 hover:text-teal-400 transition"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Login
-              </Link>
-            </li>
+
+            {/* Show Login or Logout button based on user status */}
+            {!isLoggedIn ? (
+              <li className="py-2 md:py-0">
+                <Link
+                  to="/login"
+                  className="block px-4 py-2 hover:text-teal-400 transition"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+              </li>
+            ) : (
+              <li className="py-2 md:py-0">
+                <button
+                  onClick={handleLogout}
+                  className="block px-4 py-2 text-red-500 hover:text-red-400 transition"
+                >
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </header>

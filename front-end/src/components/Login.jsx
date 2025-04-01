@@ -25,10 +25,18 @@ const Login = () => {
 
       if (result.success) {
         alert(`${result.role} login successful`);
-        if (email === "admin@example.com") {
-          navigate("/admin.");
-        } else if (email === "manager@example.com") {
-          navigate("/A-inclarge");
+
+        // Store user authentication details in localStorage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ email, role: result.role })
+        );
+
+        // Navigate based on role
+        if (result.role === "admin") {
+          navigate("/admin");
+        } else if (result.role === "manager") {
+          navigate("/A-incharge");
         } else {
           navigate("/mainpage");
         }
@@ -40,6 +48,7 @@ const Login = () => {
       setErrorMessage("Failed to login. Please try again later.");
     }
   };
+
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-indigo-500 overflow-hidden">
