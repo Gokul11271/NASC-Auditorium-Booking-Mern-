@@ -23,11 +23,11 @@ const BookingForm = () => {
     axios
       .get("https://nasc-auditorium-booking-mern.vercel.app/bookings")
       .then((response) => {
-        console.log("Fetched bookings:", response.data);
+        // console.log("Fetched bookings:", response.data);
         setBookings(response.data.data); // Ensure correct response structure
       })
       .catch((error) => {
-        console.error("Error fetching bookings:", error.message);
+        // console.error("Error fetching bookings:", error.message);
       });
   }, []);
 
@@ -76,7 +76,7 @@ const BookingForm = () => {
       );
       setBookings(updatedBookings.data.data);
     } catch (error) {
-      console.error("Error submitting booking:", error.message);
+      // console.error("Error submitting booking:", error.message);
       alert("Failed to submit booking.");
     }
   };
