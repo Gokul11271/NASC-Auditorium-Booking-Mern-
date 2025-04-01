@@ -9,7 +9,7 @@ Features
   - Morning Slot (Yellow indicator)
   - Afternoon Slot (Blue indicator)
   - Full-Day Booking (Red indicator - no further bookings allowed for the day)
-- Admin Dashboard**:
+- Admin Dashboard:
   - View, approve, or disapprove bookings.
   - Search and filter bookings.
   - Print booking records for documentation.
