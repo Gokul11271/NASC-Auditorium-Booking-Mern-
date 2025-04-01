@@ -10,6 +10,7 @@ import AboutUs from "./components/About.jsx";
 import AIncharge from "./components/A-incharge.jsx";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import Protected Route
 import Unauthorized from "./components/Unauthorized"; // Create this component for unauthorized access
+import Instructions from "./components/Instructions.jsx";
 
 const App = () => {
   return (
@@ -81,6 +82,15 @@ const App = () => {
             <ProtectedRoute
               element={<AIncharge />}
               allowedRoles={["manager"]}
+            />
+          }
+        />
+        <Route
+          path="/instructions"
+          element={
+            <ProtectedRoute
+              element={<Instructions />}
+              allowedRoles={["user", "manager", "admin"]}
             />
           }
         />

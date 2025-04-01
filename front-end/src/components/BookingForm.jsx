@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import ReactConfetti from "react-confetti"; // Import confetti library
 import "./BookingForm.css"; // Custom styles for React Calendar
 
 const BookingForm = () => {
@@ -17,24 +18,25 @@ const BookingForm = () => {
   });
 
   const [bookings, setBookings] = useState([]);
+  const [showConfetti, setShowConfetti] = useState(false); // State to control confetti
 
- useEffect(() => {
-   const fetchBookings = () => {
-     axios
-       .get("https://nasc-auditorium-booking-mern.vercel.app/bookings")
-       .then((response) => {
-         setBookings(response.data.data);
-       })
-       .catch((error) => {
-         console.error("Error fetching bookings:", error.message);
-       });
-   };
+  useEffect(() => {
+    const fetchBookings = () => {
+      axios
+        .get("https://nasc-auditorium-booking-mern.vercel.app/bookings")
+        .then((response) => {
+          setBookings(response.data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching bookings:", error.message);
+        });
+    };
 
-   fetchBookings(); // Initial fetch
-   const interval = setInterval(fetchBookings, 5000); // Auto-refresh every 5 seconds
+    fetchBookings(); // Initial fetch
+    const interval = setInterval(fetchBookings, 5000); // Auto-refresh every 5 seconds
 
-   return () => clearInterval(interval); // Cleanup on component unmount
- }, []);
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
 
 
   const handleChange = (e) => {
@@ -43,7 +45,7 @@ const BookingForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Check for empty fields
     if (
       !Object.values(formData).every(
@@ -76,11 +78,17 @@ const BookingForm = () => {
       );
       alert("Booking successful!");
 
+      // Show confetti when booking is successful
+      setShowConfetti(true);
+
       // Refresh bookings to reflect new data
       const updatedBookings = await axios.get(
         "https://nasc-auditorium-booking-mern.vercel.app/bookings"
       );
       setBookings(updatedBookings.data.data);
+
+      // Reset confetti after 3 seconds
+      setTimeout(() => setShowConfetti(false), 5000);
     } catch (error) {
       // console.error("Error submitting booking:", error.message);
       alert("Failed to submit booking.");
@@ -152,13 +160,17 @@ const BookingForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md space-y-4"
-    >
-      <h1 className="text-2xl font-bold text-center text-gray-800">
-        Auditorium Booking Form
-      </h1>
+    <div>
+      {/* Confetti Effect */}
+      {showConfetti && <ReactConfetti />}
+
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md space-y-4"
+      >
+        <h1 className="text-2xl font-bold text-center text-gray-800">
+          Auditorium Booking Form
+        </h1>
       <input
         type="text"
         name="name"
@@ -237,24 +249,25 @@ const BookingForm = () => {
           tileDisabled={isTileDisabled}
         />
       </div>
-      <button
-        type="submit"
-        className={`w-full py-2 px-4 rounded-md ${
-          Object.values(formData).every(
-            (field) => field && field.toString().trim() !== ""
-          )
-            ? "bg-blue-500 text-white hover:bg-blue-600"
-            : "bg-gray-300 text-gray-500 cursor-not-allowed"
-        }`}
-        disabled={
-          !Object.values(formData).every(
-            (field) => field && field.toString().trim() !== ""
-          )
-        }
-      >
-        Submit Booking
-      </button>
-    </form>
+        <button
+          type="submit"
+          className={`w-full py-2 px-4 rounded-md ${
+            Object.values(formData).every(
+              (field) => field && field.toString().trim() !== ""
+            )
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
+          disabled={
+            !Object.values(formData).every(
+              (field) => field && field.toString().trim() !== ""
+            )
+          }
+        >
+          Submit Booking
+        </button>
+      </form>
+    </div>
   );
 };
 
