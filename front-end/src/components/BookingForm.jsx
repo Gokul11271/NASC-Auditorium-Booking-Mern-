@@ -18,18 +18,24 @@ const BookingForm = () => {
 
   const [bookings, setBookings] = useState([]);
 
-  useEffect(() => {
-    // Fetch existing bookings from the server
-    axios
-      .get("https://nasc-auditorium-booking-mern.vercel.app/bookings")
-      .then((response) => {
-        // console.log("Fetched bookings:", response.data);
-        setBookings(response.data.data); // Ensure correct response structure
-      })
-      .catch((error) => {
-        // console.error("Error fetching bookings:", error.message);
-      });
-  }, []);
+ useEffect(() => {
+   const fetchBookings = () => {
+     axios
+       .get("https://nasc-auditorium-booking-mern.vercel.app/bookings")
+       .then((response) => {
+         setBookings(response.data.data);
+       })
+       .catch((error) => {
+         console.error("Error fetching bookings:", error.message);
+       });
+   };
+
+   fetchBookings(); // Initial fetch
+   const interval = setInterval(fetchBookings, 5000); // Auto-refresh every 5 seconds
+
+   return () => clearInterval(interval); // Cleanup on component unmount
+ }, []);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
