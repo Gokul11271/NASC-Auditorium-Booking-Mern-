@@ -85,7 +85,7 @@ Usage
 - Integrate a calendar view for better booking management.
 
  Contributors
-- Gokul R - [GitHub](https://github.com/Gokul11271) | [LinkedIn](https://linkedin.com/in/gokul04developer)
+- Gokul R 😎 - [GitHub](https://github.com/Gokul11271) | [LinkedIn](https://linkedin.com/in/gokul04developer)
 
 License
 This project is licensed under the MIT License.
