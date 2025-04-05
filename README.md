@@ -80,7 +80,7 @@ Usage
    - Print booking details.
 
  Future Enhancements
-- Add authentication (Admin/User roles).
+- Add authentication (Admin/User roles/manager).
 - Implement email notifications for approvals and rejections.
 - Integrate a calendar view for better booking management.
 
