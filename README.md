@@ -4,10 +4,10 @@ Overview
 The Auditorium Booking System is a web-based application designed to facilitate the seamless booking of an auditorium. Built with the MERN (MongoDB, Express.js, React.js, Node.js) stack, this system allows users to request bookings and enables administrators to manage and approve reservations efficiently.
 
 Features
-- User Booking Requests: Users can submit requests for booking the auditorium by providing details like name, department, date, and duration.
+- User Booking Requests: Users can submit requests for booking the auditorium by providing details like name, department, date, and duration...
 - Slot-Based Booking:
-  - Morning Slot (Yellow indicator)
-  - Afternoon Slot (Blue indicator)
+  - Morning Slot (Yellow indicator) 
+  - Afternoon Slot (Blue indicator) 
   - Full-Day Booking (Red indicator - no further bookings allowed for the day)
 - Admin Dashboard:
   - View, approve, or disapprove bookings.
