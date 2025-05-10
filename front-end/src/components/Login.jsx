@@ -12,20 +12,33 @@ const Login = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://nasc-auditorium-booking-mern.vercel.app/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const result = await response.json();
 
       if (result.success) {
         alert(`${result.role} login successful`);
-        if (email === "admin@example.com") {
-          navigate("/admin.");
+
+        // Store user authentication details in localStorage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ email, role: result.role })
+        );
+
+        // Navigate based on role
+        if (result.role === "admin") {
+          navigate("/admin");
+        } else if (result.role === "manager") {
+          navigate("/A-incharge");
         } else {
-          navigate("/bookingform");
+          navigate("/mainpage");
         }
       } else {
         setErrorMessage(result.message);
@@ -35,6 +48,7 @@ const Login = () => {
       setErrorMessage("Failed to login. Please try again later.");
     }
   };
+
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-indigo-500 overflow-hidden">
@@ -70,7 +84,7 @@ const Login = () => {
             type="submit"
             className="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
           >
-            Login.
+            Login
           </button>
         </form>
         <div className="mt-4 text-center">
