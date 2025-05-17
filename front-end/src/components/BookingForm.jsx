@@ -4,6 +4,9 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import ReactConfetti from "react-confetti"; // Import confetti library
 import "./BookingForm.css"; // Custom styles for React Calendar
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +55,7 @@ const BookingForm = () => {
         (field) => field && field.toString().trim() !== ""
       )
     ) {
-      alert("All fields are required!");
+      toast.warn("Please fill in all the required fields!");
       return;
     }
 
@@ -76,7 +79,8 @@ const BookingForm = () => {
         "https://nasc-auditorium-booking-mern.vercel.app/booking",
         formData
       );
-      alert("Booking successful!");
+      toast.success("Booking submitted successfully!");
+      // Reset form data
 
       // Show confetti when booking is successful
       setShowConfetti(true);
@@ -163,6 +167,7 @@ const BookingForm = () => {
     <div>
       {/* Confetti Effect */}
       {showConfetti && <ReactConfetti />}
+      <ToastContainer position="top-center" autoClose={3000} />
 
       <form
         onSubmit={handleSubmit}
@@ -171,84 +176,86 @@ const BookingForm = () => {
         <h1 className="text-2xl font-bold text-center text-gray-800">
           Auditorium Booking Form
         </h1>
-      <input
-        type="text"
-        name="name"
-        placeholder="Full Name"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email Address"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-      <input
-        type="text"
-        name="mobileNumber"
-        placeholder="Mobile Number"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-      <input
-        type="text"
-        name="eventName"
-        placeholder="Event Name"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-      <input
-        type="text"
-        name="department"
-        placeholder="Department"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-      <select
-        name="college"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        <option value="">Select The College</option>
-        <option value="nasc">Nandha Arts and Science College</option>
-        <option value="npc">Nandha College of Pharmacy</option>
-        <option value="npt">Nandha College of Physiotherapy</option>
-        <option value="ncn-nursing">Nandha College of Nursing</option>
-        <option value="ncn-bed">Nandha BED Teacher Training</option>
-        <option value="naahs">Nandha Academy of Allied Health Sciences</option>
-      </select>
-      <select
-        name="duration"
-        onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        <option value="">Select Time Duration</option>
-        <option value="Full day">Full day</option>
-        <option value="Morning">Morning</option>
-        <option value="Afternoon">Afternoon</option>
-      </select>
-      <div className="calendar-container">
-        <Calendar
-          onChange={(date) => {
-            const adjustedDate = new Date(
-              Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-            );
-            setFormData({
-              ...formData,
-              dateofBooking: adjustedDate.toISOString(),
-            });
-          }}
-          value={
-            formData.dateofBooking
-              ? new Date(formData.dateofBooking)
-              : new Date()
-          }
-          tileClassName={getTileClass}
-          tileDisabled={isTileDisabled}
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
-      </div>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <input
+          type="text"
+          name="mobileNumber"
+          placeholder="Mobile Number"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <input
+          type="text"
+          name="eventName"
+          placeholder="Event Name"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <input
+          type="text"
+          name="department"
+          placeholder="Department"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <select
+          name="college"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">Select The College</option>
+          <option value="nasc">Nandha Arts and Science College</option>
+          <option value="npc">Nandha College of Pharmacy</option>
+          <option value="npt">Nandha College of Physiotherapy</option>
+          <option value="ncn-nursing">Nandha College of Nursing</option>
+          <option value="ncn-bed">Nandha BED Teacher Training</option>
+          <option value="naahs">
+            Nandha Academy of Allied Health Sciences
+          </option>
+        </select>
+        <select
+          name="duration"
+          onChange={handleChange}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">Select Time Duration</option>
+          <option value="Full day">Full day</option>
+          <option value="Morning">Morning</option>
+          <option value="Afternoon">Afternoon</option>
+        </select>
+        <div className="calendar-container">
+          <Calendar
+            onChange={(date) => {
+              const adjustedDate = new Date(
+                Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+              );
+              setFormData({
+                ...formData,
+                dateofBooking: adjustedDate.toISOString(),
+              });
+            }}
+            value={
+              formData.dateofBooking
+                ? new Date(formData.dateofBooking)
+                : new Date()
+            }
+            tileClassName={getTileClass}
+            tileDisabled={isTileDisabled}
+          />
+        </div>
         <button
           type="submit"
           className={`w-full py-2 px-4 rounded-md ${
