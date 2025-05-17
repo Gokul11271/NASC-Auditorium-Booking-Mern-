@@ -79,7 +79,7 @@ const BookingForm = () => {
         "https://nasc-auditorium-booking-mern.vercel.app/booking",
         formData
       );
-      toast.success("Booking submitted successfully!");
+      toast.success("Booking submitted successfully! check your email for confirmation.");
       // Reset form data
 
       // Show confetti when booking is successful
@@ -95,7 +95,7 @@ const BookingForm = () => {
       setTimeout(() => setShowConfetti(false), 5000);
     } catch (error) {
       // console.error("Error submitting booking:", error.message);
-      alert("Failed to submit booking.");
+      toast.error("Error submitting booking. Please try again.");
     }
   };
 
